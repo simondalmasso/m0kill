@@ -1,0 +1,89 @@
+name: ARQ3 platform integrity
+
+on:
+  push:
+    branches:
+      - arq3/platform-kaggriculture-v1
+    paths:
+      - docs/migration/**
+      - docs/handoffs/ARQ3-PLATFORM-KAGGRICULTURE.md
+      - competitions/kaggriculture/**
+      - .github/workflows/arq3-platform.yml
+      - .github/workflows/README.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arq3-platform-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify ARQ3 lane isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF_NAME}" = "arq3/platform-kaggriculture-v1"
+          git fetch --no-tags origin main
+          files="$(git diff --name-only origin/main...HEAD)"
+          printf '%s\n' "$files"
+          bad="$(printf '%s\n' "$files" | grep -Ev '^(competitions/kaggriculture/|docs/migration/|docs/handoffs/ARQ3-PLATFORM-KAGGRICULTURE\.md$|docs/checkpoints/ARQ3/|\.github/workflows/arq3-platform\.yml$|\.github/workflows/README\.md$)' || true)"
+          test -z "$bad" || {
+            echo "Forbidden ARQ3 path(s):"
+            echo "$bad"
+            exit 1
+          }
+
+      - name: Verify migration provenance markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq '9f8af8f4ced4ad5fba63900251a4ff87bd4af935' docs/migration/MIGRATION-MANIFEST.md
+          grep -Fq '4a4df6d3095901d1dd833a3be8ea0ee38b91c547' docs/migration/MIGRATION-MANIFEST.md
+          grep -Fq 'snapshot/provenance migration' docs/migration/MIGRATION-MANIFEST.md
+          if grep -Eq '^  pull_request_target:' .github/workflows/arq3-platform.yml; then
+            echo "pull_request_target is forbidden"
+            exit 1
+          fi
+
+      - name: Check credential-like filenames
+        shell: bash
+        run: |
+          set -euo pipefail
+          files="$(git diff --name-only origin/main...HEAD)"
+          bad="$(printf '%s\n' "$files" | grep -Ei '(^|/)(\.env($|\.)|.*credentials?.*|.*secrets?.*|.*token.*|.*\.pem$|.*\.key$)' || true)"
+          test -z "$bad" || {
+            echo "Credential-like path(s):"
+            echo "$bad"
+            exit 1
+          }
+
+      - name: Build deterministic integrity artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="arq3-platform-${GITHUB_SHA}.txt"
+          {
+            echo "sha=${GITHUB_SHA}"
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "base=main"
+            git diff --name-only origin/main...HEAD | LC_ALL=C sort
+          } > "$out"
+
+      - name: Upload integrity artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arq3-platform-${{ github.sha }}
+          path: arq3-platform-${{ github.sha }}.txt
+          if-no-files-found: error
+          retention-days: 7
