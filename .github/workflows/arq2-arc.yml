@@ -1,0 +1,35 @@
+name: ARQ2 ARC killtest
+
+on:
+  push:
+    branches:
+      - arq2/arc-killtest-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arq2-arc-killtest-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    name: contract-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run ARQ2 contract tests
+        run: |
+          python -m unittest discover \
+            -s competitions/arc-agi-3/tests \
+            -p 'test_*.py' \
+            -v
