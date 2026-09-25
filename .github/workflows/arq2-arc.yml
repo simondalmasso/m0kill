@@ -13,6 +13,10 @@ concurrency:
   group: arq2-arc-killtest-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  ARC_AGI_VERSION: "0.9.9"
+  ARC_FRAMEWORK_SHA: "4743e7d0aaae0ded0d98a89a7e282e63564cd58b"
+
 jobs:
   contract:
     name: contract-tests
@@ -27,9 +31,87 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Compile owned Python
+        run: |
+          python -m compileall -q competitions/arc-agi-3
       - name: Run ARQ2 contract tests
         run: |
           python -m unittest discover \
             -s competitions/arc-agi-3/tests \
             -p 'test_*.py' \
             -v
+
+  public-killtest:
+    name: frozen-public-offline-killtest
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install pinned ARC runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "arc-agi==${ARC_AGI_VERSION}"
+          python - <<'PY'
+          import importlib.metadata
+          version = importlib.metadata.version("arc-agi")
+          assert version == "0.9.9", version
+          print("ARC_AGI_VERSION=" + version)
+          PY
+      - name: Pin official ARC agent framework
+        run: |
+          mkdir -p competitions/arc-agi-3/vendor
+          git clone --quiet https://github.com/arcprize/ARC-AGI-3-Agents.git \
+            competitions/arc-agi-3/vendor/ARC-AGI-3-Agents
+          git -C competitions/arc-agi-3/vendor/ARC-AGI-3-Agents checkout --quiet "${ARC_FRAMEWORK_SHA}"
+          test "$(git -C competitions/arc-agi-3/vendor/ARC-AGI-3-Agents rev-parse HEAD)" = "${ARC_FRAMEWORK_SHA}"
+          printf '%s\n' '"""Minimal package surface for ORDER-006-P2 local evaluation."""' \
+            > competitions/arc-agi-3/vendor/ARC-AGI-3-Agents/agents/__init__.py
+      - name: Freeze public corpus and local environment bytes
+        run: |
+          mkdir -p competitions/arc-agi-3/artifacts
+          python competitions/arc-agi-3/tests/run_local_eval.py \
+            --framework competitions/arc-agi-3/vendor/ARC-AGI-3-Agents \
+            --phase freeze \
+            --corpus competitions/arc-agi-3/artifacts/frozen-corpus.json \
+            --environments-dir competitions/arc-agi-3/.arc_env_cache
+      - name: Run four-lane killtest offline
+        run: |
+          python competitions/arc-agi-3/tests/run_local_eval.py \
+            --framework competitions/arc-agi-3/vendor/ARC-AGI-3-Agents \
+            --phase evaluate \
+            --corpus competitions/arc-agi-3/artifacts/frozen-corpus.json \
+            --environments-dir competitions/arc-agi-3/.arc_env_cache \
+            --max-actions 200 \
+            --repeats 2 \
+            --output competitions/arc-agi-3/artifacts/core-killtest.json
+      - name: Print durable-result digest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("competitions/arc-agi-3/artifacts/core-killtest.json")
+          data = json.loads(p.read_text())
+          print("CORPUS_SHA256=" + data["corpus_sha256"])
+          print("ARTIFACT_SHA256=" + data["artifact_sha256"])
+          print("DECISION=" + json.dumps(data["decision"], sort_keys=True))
+          for label in ["A_BASE_0", "A_BASE_1", "A_BASE_2", "A_CHALLENGER"]:
+              print(label + "=" + json.dumps(data["results"][label]["summary"], sort_keys=True))
+          PY
+      - name: Upload killtest evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: arq2-arc-killtest-${{ github.sha }}
+          path: |
+            competitions/arc-agi-3/artifacts/frozen-corpus.json
+            competitions/arc-agi-3/artifacts/core-killtest.json
+          if-no-files-found: error
+          retention-days: 30
