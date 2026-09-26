@@ -4,7 +4,7 @@ PROJECT=MONEYKILLER / m0kill
 PURPOSE=Execute the highest-value legal prize-agent killtest with USD0, durable evidence and no speculative feature growth.
 REPO=https://github.com/simondalmasso/m0kill
 LIVE=GitHub active; GitLab historical archive/mirror target.
-LAST_VERIFIED=2026-09-26T01:59:56Z
+LAST_VERIFIED=2026-09-26T02:03:14Z
 ROLE_LOCK=ARQ
 SINGLE_ARQ_MODE=YES
 BRANCH=arq1/battlecode-killtest-v1
@@ -24,7 +24,7 @@ HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
 - ARC-AGI-3 is KILLED_NO_EDGE. Latest run 36210113478 at aac9c17791d4ae2c3a5c8a54495c4814f2db15bc reproduced:
   best baseline RHAE 0.03846731780616078 > challenger 0.0016861537025368155; delta -0.03678116410362396; CI95 [-0.11540195341848233,0.005058461107610447].
 - Kaggriculture remains BLOCKED/INDET at authenticated account gate; no agent work.
-- GitHub migration/provenance work is done enough for active development; automatic GitLab mirroring is an infrastructure follow-up, not a Battlecode blocker.
+- GitHub migration/provenance work is done enough for active development. `.github/workflows/mirror-gitlab.yml` is configured for non-destructive GitHub→GitLab mirroring but remains inactive until `GITLAB_MIRROR_TOKEN` is added as a GitHub repository secret. This is not a Battlecode blocker.
 
 ## DONE
 - GitHub active cutover and branch isolation.
@@ -89,6 +89,12 @@ READY_FOR_AUD only when Battlecode has an evidence-backed terminal state:
 
 BLOCKED_WITH_EVIDENCE only if a real external blocker prevents all material Battlecode progress.
 Never self-approve or merge. After terminal checkpoint, STOP for AUD.
+
+## MIRROR STATUS
+CONFIGURED=YES
+LIVE=NO_MISSING_SECRET
+SMOKE_RUN=https://github.com/simondalmasso/m0kill/actions/runs/36210449154
+Do not modify mirror policy during Battlecode work.
 
 ## NEXT EXACT ACTION
 Open Issue #1, verify account/Sprint/toolkit state, then run the existing official-sandbox paired killtest on frozen maps/seeds.
