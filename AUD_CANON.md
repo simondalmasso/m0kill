@@ -4,7 +4,7 @@ PROJECT=MONEYKILLER / m0kill
 PURPOSE=Find legitimate USD0 prize opportunities where autonomous agents are explicitly allowed; kill weak approaches early and preserve auditable evidence.
 REPO=https://github.com/simondalmasso/m0kill
 LIVE=GitHub is the active code/compute plane. GitLab is historical evidence/archive and mirror target.
-LAST_VERIFIED=2026-09-26T02:03:14Z
+LAST_VERIFIED=2026-09-26T02:40:31Z
 BRANCH=arq1/battlecode-killtest-v1
 HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
 
@@ -43,12 +43,12 @@ HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
 - Verify Battlecode registration/team/account and Sprint eligibility.
 - Execute official-engine paired Battlecode corpus with resource/death metrics.
 - Resolve Kaggriculture authenticated account gate only if AUD later reopens it.
-- GitHub→GitLab mirror workflow is configured; activate it by adding repository secret `GITLAB_MIRROR_TOKEN` with GitLab `write_repository` scope, then rerun the workflow.
+- GitHub→GitLab mirror is active via OS scheduler. Cloud fallback remains optional; no GitHub secret is required for the active path.
 
 ## BLOCKERS/RISKS
 - Kaggriculture rules-acceptance state before its entry deadline is not proven.
 - Current GitHub migration is content/provenance snapshot, not a 1:1 historical Git-object mirror.
-- Mirror workflow `.github/workflows/mirror-gitlab.yml` exists and was smoke-tested at run https://github.com/simondalmasso/m0kill/actions/runs/36210449154. It fails closed because `GITLAB_MIRROR_TOKEN` is absent. Connector access cannot create GitHub Actions secrets directly.
+- ACTIVE MIRROR=Windows Task Scheduler task `MONEYKILLER-GitHub-to-GitLab-Mirror`, every 15 minutes, running `C:\\GPT-SANDBOX\\m0kill-mirror\\mirror.ps1` under user Simon. It fetches GitHub and pushes non-destructively to GitLab `github/*`. Last forced scheduler run returned 0 and log ended `MIRROR_OK` at 2026-09-25T23:40:31-03:00. No ChatGPT connector participates after setup.
 
 ## DO_NOT_TOUCH
 - Do not reopen ARC without explicit AUD authority.
@@ -67,9 +67,11 @@ AUD alone may reopen a killed lane or approve merge/canon changes.
 
 ## MIRROR STATUS
 - CONFIGURED=YES
-- LIVE=NO_MISSING_SECRET
+- LIVE=YES_LOCAL_SCHEDULED_TASK
+- CADENCE=15 minutes
 - POLICY=non-destructive: GitHub branch `X` → GitLab branch `github/X`; historical GitLab refs are never overwritten or deleted.
-- SMOKE_RUN=https://github.com/simondalmasso/m0kill/actions/runs/36210449154
+- VERIFIED_GITLAB_REFS=`github/main`, `github/arq1/battlecode-killtest-v1`, `github/arq2/arc-killtest-v1`, `github/arq3/platform-kaggriculture-v1`
+- CLOUD_WORKFLOW=.github/workflows/mirror-gitlab.yml is manual-only fallback and intentionally not scheduled.
 
 ## NEXT EXACT ACTION
 Audit Battlecode from Issue #1 on arq1/battlecode-killtest-v1: resolve account/Sprint gate, pin/audit official toolkit, run the frozen paired official-sandbox killtest, and produce KILLED_NO_EDGE or PROMOTED/SUBMITTED with raw evidence.
