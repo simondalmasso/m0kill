@@ -4,7 +4,7 @@ PROJECT=MONEYKILLER / m0kill
 PURPOSE=Find legitimate USD0 prize opportunities where autonomous agents are explicitly allowed; kill weak approaches early and preserve auditable evidence.
 REPO=https://github.com/simondalmasso/m0kill
 LIVE=GitHub is the active code/compute plane. GitLab is historical evidence/archive and mirror target.
-LAST_VERIFIED=2026-09-26T01:59:56Z
+LAST_VERIFIED=2026-09-26T02:03:14Z
 BRANCH=arq1/battlecode-killtest-v1
 HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
 
@@ -43,12 +43,12 @@ HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
 - Verify Battlecode registration/team/account and Sprint eligibility.
 - Execute official-engine paired Battlecode corpus with resource/death metrics.
 - Resolve Kaggriculture authenticated account gate only if AUD later reopens it.
-- Finish GitHub→GitLab automatic mirror credentials/configuration.
+- GitHub→GitLab mirror workflow is configured; activate it by adding repository secret `GITLAB_MIRROR_TOKEN` with GitLab `write_repository` scope, then rerun the workflow.
 
 ## BLOCKERS/RISKS
 - Kaggriculture rules-acceptance state before its entry deadline is not proven.
 - Current GitHub migration is content/provenance snapshot, not a 1:1 historical Git-object mirror.
-- GitHub→GitLab automatic push requires a non-exposed write credential/deploy key on GitLab and a GitHub Actions secret; connector access currently cannot create that secret directly.
+- Mirror workflow `.github/workflows/mirror-gitlab.yml` exists and was smoke-tested at run https://github.com/simondalmasso/m0kill/actions/runs/36210449154. It fails closed because `GITLAB_MIRROR_TOKEN` is absent. Connector access cannot create GitHub Actions secrets directly.
 
 ## DO_NOT_TOUCH
 - Do not reopen ARC without explicit AUD authority.
@@ -64,6 +64,12 @@ Official engine/account evidence outranks summaries.
 CI_GREEN!=DONE.
 A lane promotes only on legal E2E + resource safety + positive evidence vs best cheap baseline.
 AUD alone may reopen a killed lane or approve merge/canon changes.
+
+## MIRROR STATUS
+- CONFIGURED=YES
+- LIVE=NO_MISSING_SECRET
+- POLICY=non-destructive: GitHub branch `X` → GitLab branch `github/X`; historical GitLab refs are never overwritten or deleted.
+- SMOKE_RUN=https://github.com/simondalmasso/m0kill/actions/runs/36210449154
 
 ## NEXT EXACT ACTION
 Audit Battlecode from Issue #1 on arq1/battlecode-killtest-v1: resolve account/Sprint gate, pin/audit official toolkit, run the frozen paired official-sandbox killtest, and produce KILLED_NO_EDGE or PROMOTED/SUBMITTED with raw evidence.
