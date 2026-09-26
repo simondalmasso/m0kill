@@ -1,9 +1,10 @@
 {
   "ablations_run": false,
   "account_rules_acceptance": "UNVERIFIED_AUTHENTICATED_STATE",
-  "artifact_internal_sha256": "b272fd61b073c27e4dd14e455c4a0cfdbba4e6449222fbe1197d1cb418c535df",
+  "artifact_internal_sha256": "fbf7240ac9acb608f7b4bf05ed8edef6a72b175f191c22a5ef8e656a936e7872",
+  "artifact_zip_sha256": "c872cdc97017570ac991fcc0c06534f62b50ad120bd36540147a7a87366d3da7",
   "branch": "arq2/arc-killtest-v1",
-  "core_killtest_file_sha256": "096ed9204eb4dc8c8fcde8349f1e49ffe17e1ec11dcd443f4eb7a5750466916e",
+  "core_killtest_file_sha256": "77e7005ad61da5c68d0f524aa702590ad28f1ecd91c4e8fb0fc7833d74ae34ef",
   "corpus": {
     "file_sha256": "70b3276328da840896761230719be3b5098d0c98b1543230c280250a10772ae7",
     "games": 25,
@@ -53,7 +54,7 @@
     "metric": "rhae",
     "offline_reproducible": true,
     "paired_delta_mean": -0.03678116410362397,
-    "projected_10x_runtime_s": 233.9325117100003,
+    "projected_10x_runtime_s": 236.2767378099997,
     "repeat_deltas": [
       -0.03678116410362396,
       -0.03678116410362396
@@ -62,11 +63,10 @@
     "status": "KILLED_NO_EDGE"
   },
   "evidence_run": {
-    "artifact_id": 10886013030,
-    "commit": "f103694e5e0a8ff19fa3e86285b75800a50458f7",
-    "job_id": 108237288327,
-    "tree": "e3305c2d482c3a7f26d02f72b2ecfbb56195e43d",
-    "workflow_run_id": 36185344549
+    "artifact_id": 10895940772,
+    "commit": "3587dd28eb8e2548593e77432a7a0d49671d5311",
+    "job_id": 108315737286,
+    "workflow_run_id": 36210447896
   },
   "kaggle_submission_made": false,
   "notebook_built": false,
@@ -98,10 +98,13 @@
     "runner": "ubuntu-24.04",
     "starter": "eeb1535404f321d280a8f9194bbc1d7aca5f05fc"
   },
-  "schema": 1,
+  "schema": 2,
   "starter_parity": {
-    "agent_contract_execution_zero_errors": true,
-    "exact_unmodified_starter_score_run": false,
+    "exact_unmodified_starter_verify_local": true,
+    "games": ["ls20", "vc33"],
+    "max_steps": 50,
+    "result": "PASS",
+    "aggregate_score": 0.0,
     "runtime_framework_pin": true
   },
   "stop_reason": "KILLED_NO_EDGE",
@@ -115,7 +118,7 @@
       "offline_reproducible": true,
       "repeats": 2,
       "rhae": 0.0,
-      "runtime_s": 7.843341772999963
+      "runtime_s": 7.99237281100001
     },
     "A_BASE_1": {
       "actions": 5025.0,
@@ -126,7 +129,7 @@
       "offline_reproducible": true,
       "repeats": 2,
       "rhae": 0.0,
-      "runtime_s": 7.811452208000077
+      "runtime_s": 7.990036681499973
     },
     "A_BASE_2": {
       "actions": 5025.0,
@@ -137,7 +140,7 @@
       "offline_reproducible": true,
       "repeats": 2,
       "rhae": 0.03846731780616078,
-      "runtime_s": 18.052878425500097
+      "runtime_s": 18.35269626399993
     },
     "A_CHALLENGER": {
       "actions": 5025.0,
@@ -148,7 +151,7 @@
       "offline_reproducible": true,
       "repeats": 2,
       "rhae": 0.0016861537025368155,
-      "runtime_s": 23.39325117100003
+      "runtime_s": 23.62767378099997
     }
   }
 }
