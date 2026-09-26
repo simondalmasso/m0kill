@@ -1,0 +1,154 @@
+{
+  "ablations_run": false,
+  "account_rules_acceptance": "UNVERIFIED_AUTHENTICATED_STATE",
+  "artifact_internal_sha256": "b272fd61b073c27e4dd14e455c4a0cfdbba4e6449222fbe1197d1cb418c535df",
+  "branch": "arq2/arc-killtest-v1",
+  "core_killtest_file_sha256": "096ed9204eb4dc8c8fcde8349f1e49ffe17e1ec11dcd443f4eb7a5750466916e",
+  "corpus": {
+    "file_sha256": "70b3276328da840896761230719be3b5098d0c98b1543230c280250a10772ae7",
+    "games": 25,
+    "ids": [
+      "ar25-0c556536",
+      "bp35-0a0ad940",
+      "cd82-fb555c5d",
+      "cn04-2fe56bfb",
+      "dc22-fdcac232",
+      "ft09-0d8bbf25",
+      "g50t-5849a774",
+      "ka59-38d34dbb",
+      "lf52-271a04aa",
+      "lp85-305b61c3",
+      "ls20-9607627b",
+      "m0r0-492f87ba",
+      "r11l-495a7899",
+      "re86-8af5384d",
+      "s5i5-18d95033",
+      "sb26-7fbdac44",
+      "sc25-635fd71a",
+      "sk48-d8078629",
+      "sp80-589a99af",
+      "su15-1944f8ab",
+      "tn36-ef4dde99",
+      "tr87-cd924810",
+      "tu93-0768757b",
+      "vc33-5430563c",
+      "wa30-ee6fef47"
+    ],
+    "internal_sha256": "4970c1faccc88ec02195f289ffcdd0105f5d9de3b960ff31611754f7e9dd9c0a"
+  },
+  "decision": {
+    "best_baseline": "A_BASE_2",
+    "ci_positive": false,
+    "delta": -0.03678116410362396,
+    "delta_95ci": [
+      -0.11540195341848233,
+      0.005058461107610447
+    ],
+    "estimated_9h_compatible": true,
+    "failure_modes": [
+      "nonpositive_repeat_delta",
+      "delta_95ci_not_strictly_positive"
+    ],
+    "genuine_progress": false,
+    "metric": "rhae",
+    "offline_reproducible": true,
+    "paired_delta_mean": -0.03678116410362397,
+    "projected_10x_runtime_s": 233.9325117100003,
+    "repeat_deltas": [
+      -0.03678116410362396,
+      -0.03678116410362396
+    ],
+    "repeat_positive": false,
+    "status": "KILLED_NO_EDGE"
+  },
+  "evidence_run": {
+    "artifact_id": 10886013030,
+    "commit": "f103694e5e0a8ff19fa3e86285b75800a50458f7",
+    "job_id": 108237288327,
+    "tree": "e3305c2d482c3a7f26d02f72b2ecfbb56195e43d",
+    "workflow_run_id": 36185344549
+  },
+  "kaggle_submission_made": false,
+  "notebook_built": false,
+  "order": "006-P2",
+  "progress_games": {
+    "A_BASE_0": {},
+    "A_BASE_1": {},
+    "A_BASE_2": {
+      "lf52-271a04aa": {
+        "actions": 201.0,
+        "levels_completed": 1.0,
+        "rhae": 0.9616829451540195
+      }
+    },
+    "A_CHALLENGER": {
+      "lp85-305b61c3": {
+        "actions": 201.0,
+        "levels_completed": 1.0,
+        "rhae": 0.04215384256342039
+      }
+    }
+  },
+  "repair_used": 0,
+  "role": "ARQ2_MONEYKILLER",
+  "runtime_pins": {
+    "arc_agi": "0.9.9",
+    "framework": "4743e7d0aaae0ded0d98a89a7e282e63564cd58b",
+    "python": "3.12.14",
+    "runner": "ubuntu-24.04",
+    "starter": "eeb1535404f321d280a8f9194bbc1d7aca5f05fc"
+  },
+  "schema": 1,
+  "starter_parity": {
+    "agent_contract_execution_zero_errors": true,
+    "exact_unmodified_starter_score_run": false,
+    "runtime_framework_pin": true
+  },
+  "stop_reason": "KILLED_NO_EDGE",
+  "summaries": {
+    "A_BASE_0": {
+      "actions": 5025.0,
+      "errors": 0,
+      "games": 25,
+      "games_with_progress": 0.0,
+      "levels_completed": 0.0,
+      "offline_reproducible": true,
+      "repeats": 2,
+      "rhae": 0.0,
+      "runtime_s": 7.843341772999963
+    },
+    "A_BASE_1": {
+      "actions": 5025.0,
+      "errors": 0,
+      "games": 25,
+      "games_with_progress": 0.0,
+      "levels_completed": 0.0,
+      "offline_reproducible": true,
+      "repeats": 2,
+      "rhae": 0.0,
+      "runtime_s": 7.811452208000077
+    },
+    "A_BASE_2": {
+      "actions": 5025.0,
+      "errors": 0,
+      "games": 25,
+      "games_with_progress": 1.0,
+      "levels_completed": 1.0,
+      "offline_reproducible": true,
+      "repeats": 2,
+      "rhae": 0.03846731780616078,
+      "runtime_s": 18.052878425500097
+    },
+    "A_CHALLENGER": {
+      "actions": 5025.0,
+      "errors": 0,
+      "games": 25,
+      "games_with_progress": 1.0,
+      "levels_completed": 1.0,
+      "offline_reproducible": true,
+      "repeats": 2,
+      "rhae": 0.0016861537025368155,
+      "runtime_s": 23.39325117100003
+    }
+  }
+}
