@@ -41,9 +41,38 @@ jobs:
             -p 'test_*.py' \
             -v
 
+  official-starter-parity:
+    name: official-starter-parity
+    needs: contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned ARC runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "arc-agi==${ARC_AGI_VERSION}"
+      - name: Checkout exact official starter and framework
+        run: |
+          git clone --quiet https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter.git /tmp/arc-starter
+          git -C /tmp/arc-starter checkout --quiet eeb1535404f321d280a8f9194bbc1d7aca5f05fc
+          mkdir -p /tmp/arc-starter/vendor
+          git clone --quiet https://github.com/arcprize/ARC-AGI-3-Agents.git /tmp/arc-starter/vendor/ARC-AGI-3-Agents
+          git -C /tmp/arc-starter/vendor/ARC-AGI-3-Agents checkout --quiet "${ARC_FRAMEWORK_SHA}"
+          python /tmp/arc-starter/scripts/slim_framework.py
+      - name: Run official verify-local smoke unchanged
+        working-directory: /tmp/arc-starter
+        run: |
+          python scripts/play_local.py --game ls20,vc33 --max-steps 50
+
   public-killtest:
     name: frozen-public-offline-killtest
-    needs: contract
+    needs:
+      - contract
+      - official-starter-parity
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
