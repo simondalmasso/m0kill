@@ -1,13 +1,6 @@
-name: Mirror GitHub to GitLab
+name: Mirror GitHub to GitLab (cloud fallback)
 
 on:
-  schedule:
-    - cron: "17,47 * * * *"
-  push:
-    branches:
-      - main
-    tags:
-      - "*"
   workflow_dispatch:
 
 permissions:
@@ -31,12 +24,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Require GitLab write credential
+      - name: Require optional GitLab cloud credential
         shell: bash
         run: |
           set -euo pipefail
           if [ -z "${GITLAB_MIRROR_TOKEN}" ]; then
-            echo "::error::Missing repository secret GITLAB_MIRROR_TOKEN (GitLab token with write_repository scope)."
+            echo "::error::Cloud fallback is not enabled. Active mirror is the autonomous Windows scheduled task."
             exit 1
           fi
 
@@ -51,24 +44,19 @@ jobs:
         run: |
           set -euo pipefail
           remote="https://oauth2:${GITLAB_MIRROR_TOKEN}@${GITLAB_TARGET}"
-
           while IFS= read -r ref; do
             branch="${ref#refs/remotes/origin/}"
             [ "${branch}" = "HEAD" ] && continue
-            echo "Mirroring branch ${branch} -> github/${branch}"
             git push "${remote}" "${ref}:refs/heads/github/${branch}"
           done < <(git for-each-ref --format='%(refname)' refs/remotes/origin/)
-
           while IFS= read -r ref; do
             tag="${ref#refs/tags/}"
-            echo "Mirroring tag ${tag} -> github/${tag}"
             git push "${remote}" "${ref}:refs/tags/github/${tag}"
           done < <(git for-each-ref --format='%(refname)' refs/tags/)
 
       - name: Mirror policy
         run: |
-          echo "Source: https://github.com/simondalmasso/m0kill"
-          echo "Target: https://gitlab.com/simondalmasso/Moneykiller"
+          echo "Cloud fallback only; not scheduled."
+          echo "Active automation runs outside ChatGPT via Windows Task Scheduler."
           echo "Branch mapping: refs/heads/X -> refs/heads/github/X"
-          echo "Tag mapping: refs/tags/X -> refs/tags/github/X"
           echo "Historical GitLab refs are never deleted or overwritten."
