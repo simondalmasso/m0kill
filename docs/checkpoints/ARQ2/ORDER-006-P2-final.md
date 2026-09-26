@@ -15,13 +15,23 @@ MERGE=NO
 
 - Public rules/runtime inspection completed.
 - Authenticated Kaggle account/rules acceptance could not be verified from this chat and is recorded as UNVERIFIED_AUTHENTICATED_STATE; no assumption was made.
-- Runtime pins used for the decisive run:
+- Runtime pins:
   - Python 3.12.14
   - arc-agi 0.9.9
   - official ARC-AGI-3-Agents commit 4743e7d0aaae0ded0d98a89a7e282e63564cd58b
-  - official local-dev starter inspected at eeb1535404f321d280a8f9194bbc1d7aca5f05fc
+  - official local-dev starter eeb1535404f321d280a8f9194bbc1d7aca5f05fc
   - Ubuntu 24.04 GitHub-hosted CPU runner
-- Starter/runtime parity: the official framework/runtime contract was pinned and all four agents executed the official Agent.main loop with zero runtime errors across the frozen 25-game corpus. The unmodified stochastic starter itself was not separately score-benchmarked; this limitation is explicit.
+
+## Official starter parity
+
+PASS.
+
+The exact unmodified official starter at eeb1535404f321d280a8f9194bbc1d7aca5f05fc was executed with its own verify-local path after pinning arc-agi==0.9.9 and ARC-AGI-3-Agents at 4743e7d0aaae0ded0d98a89a7e282e63564cd58b.
+
+Smoke games: ls20, vc33.  
+Max steps: 50.  
+Both completed the runner without errors, each recording 51 actions under the upstream <= MAX_ACTIONS loop.  
+Aggregate starter smoke score: 0.0.
 
 ## TDD / harness gate
 
@@ -38,20 +48,21 @@ Ablations remained opt-in and were not run before promotion.
 
 ## Frozen public ARC killtest
 
-Decisive successful workflow:
+Final sequenced workflow:
 
-- workflow run: 36185344549
-- job: 108237288327
-- commit: f103694e5e0a8ff19fa3e86285b75800a50458f7
-- git tree: e3305c2d482c3a7f26d02f72b2ecfbb56195e43d
-- Actions artifact: 10886013030
+- workflow run: 36210447896
+- parity job: 108315677331
+- killtest job: 108315737286
+- commit: 3587dd28eb8e2548593e77432a7a0d49671d5311
+- Actions artifact: 10895940772
+- Actions artifact ZIP SHA256: c872cdc97017570ac991fcc0c06534f62b50ad120bd36540147a7a87366d3da7
 - corpus: 25 public environments
 - repeats: 2
 - max actions: 200 configured; framework loop records 201 actions because upstream Agent.main uses <= MAX_ACTIONS
 - corpus internal SHA256: 4970c1faccc88ec02195f289ffcdd0105f5d9de3b960ff31611754f7e9dd9c0a
 - frozen-corpus file SHA256: 70b3276328da840896761230719be3b5098d0c98b1543230c280250a10772ae7
-- core-killtest file SHA256: 096ed9204eb4dc8c8fcde8349f1e49ffe17e1ec11dcd443f4eb7a5750466916e
-- internal artifact SHA256: b272fd61b073c27e4dd14e455c4a0cfdbba4e6449222fbe1197d1cb418c535df
+- core-killtest file SHA256: 77e7005ad61da5c68d0f524aa702590ad28f1ecd91c4e8fb0fc7833d74ae34ef
+- internal artifact SHA256: fbf7240ac9acb608f7b4bf05ed8edef6a72b175f191c22a5ef8e656a936e7872
 - durable machine-readable digest: competitions/arc-agi-3/evidence/ORDER-006-P2-killtest-digest.json
 
 ### Summary
@@ -80,7 +91,7 @@ Therefore the binding decision is KILLED_NO_EDGE.
 
 ## Repair decision
 
-No bounded repair was used. Post-run inspection did not identify a concrete, non-game-specific defect that was both absent from the evaluated symbolic agent and sufficiently evidenced to justify reopening the holdout. In particular, the evaluated symbolic implementation already filters candidates through FrameData.available_actions.
+No bounded repair was used. Post-run inspection did not identify a concrete, non-game-specific defect that was both absent from the evaluated symbolic agent and sufficiently evidenced to justify reopening the holdout. The evaluated symbolic implementation already filters candidates through FrameData.available_actions.
 
 ## Consequences
 
