@@ -1,77 +1,66 @@
 # AUD_CANON
 
 PROJECT=MONEYKILLER / m0kill
-PURPOSE=Find legitimate USD0 prize opportunities where autonomous agents are explicitly allowed; kill weak approaches early and preserve auditable evidence.
+PURPOSE=Find legitimate USD0 prize/creator opportunities, prove payout/eligibility first, kill weak paths early, and preserve auditable evidence.
 REPO=https://github.com/simondalmasso/m0kill
-LIVE=GitHub is the active code/compute plane. GitLab is historical evidence/archive and mirror target.
-LAST_VERIFIED=2026-09-26T02:40:31Z
-BRANCH=arq1/battlecode-killtest-v1
-HEAD=8c63f4264ea0b94e1e39f0a8c82c8584c521158d
+LIVE=GitHub is canonical code/compute. GitLab is historical archive plus non-destructive mirror target.
+LAST_VERIFIED=2026-10-01T04:28:39-03:00
+BRANCH=main
+HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
 
 ## CANONICAL LINKS
-- Active ARQ order: https://github.com/simondalmasso/m0kill/issues/1
-- ARC closed evidence: https://github.com/simondalmasso/m0kill/issues/2
-- Migration/Kaggriculture closed evidence: https://github.com/simondalmasso/m0kill/issues/3
-- Latest decisive ARC run: https://github.com/simondalmasso/m0kill/actions/runs/36210113478
-- Historical GitLab project: https://gitlab.com/simondalmasso/Moneykiller
-- Historical master Work Item: https://gitlab.com/simondalmasso/Moneykiller/-/work_items/5
+- GitHub: https://github.com/simondalmasso/m0kill
+- Battlecode closed order: https://github.com/simondalmasso/m0kill/issues/1
+- ARC closed order: https://github.com/simondalmasso/m0kill/issues/2
+- Migration/Kaggriculture closed order: https://github.com/simondalmasso/m0kill/issues/3
+- GitLab mirror/archive: https://gitlab.com/simondalmasso/Moneykiller
+- Battlecode official updates: https://game.battlecode.au/updates
+- Pocket Vector bounty: https://www.bountyboard.gg/bounty/one-short-about-pocket-vector
 
 ## CURRENT STATE
-- SINGLE_ARQ_MODE=YES. Parallel ARQ1/2/3 execution is retired.
-- Active lane=UNSW Battlecode. Sprint is 2026-10-01, online, open to all entrants; official site currently shows AUD 800/AUD 400 prizes.
-- Battlecode GitHub branch contains imported pre-killtest prototype: map memory/pathfinding challenger, greedy baseline, pinned helper and paired league runner. It is UNPROVEN on GitHub until official account/toolkit/sandbox killtest is executed.
-- ARC-AGI-3 is KILLED_NO_EDGE under current canon. Latest repeat at HEAD aac9c17791d4ae2c3a5c8a54495c4814f2db15bc reproduced the same verdict.
-- Kaggriculture account gate remains INDET; no economic killtest was authorized.
-- No PRs exist. main is not an integration branch for active lane work.
+- SINGLE_ARQ_MODE=YES. No parallel ARQs.
+- Battlecode Sprint path is CLOSED: submissions froze 2026-10-01 09:00 AEST before MONEYKILLER produced account-gate/official-killtest/submission evidence.
+- ARC-AGI-3=KILLED_NO_EDGE. Reproduced frozen result: best cheap baseline RHAE 0.03846731780616078 vs challenger 0.0016861537025368155; delta -0.03678116410362396; CI95 [-0.11540195341848233,0.005058461107610447].
+- Kaggriculture=BLOCKED_ACCOUNT_GATE_INDET; no build authorized.
+- Pocket Vector bounty is live but does NOT pass the existing >=USD20 net filter: listed $20 per approved short minus Bounty Board standard 10% creator fee = $18 net before any FX/tax/Stripe effects. No explicit AI-assistance ban was found in the campaign brief/Terms; authenticity/originality and paid-content disclosure still apply.
+- Bounty Board itself shows real payout history ($4.3K+ paid to 24 creators), but Pocket Vector studio has 0 creators paid so far.
+- GitHub->GitLab mirror is autonomous and current. GitHub main and GitLab github/main were verified equal at 02ca396f6f35a6945d37ff53537868c7ef57cf69.
 
 ## DONE
-- GitLab→GitHub active cutover established as snapshot/provenance migration.
-- GitHub public repo and isolated lane branches verified.
-- ARQ3 migration CI smoke passed.
-- ARC frozen public/offline killtest completed twice consistently:
-  - best baseline A_BASE_2 RHAE=0.03846731780616078
-  - challenger RHAE=0.0016861537025368155
-  - delta=-0.03678116410362396
-  - CI95=[-0.11540195341848233,0.005058461107610447]
-  - decision=KILLED_NO_EDGE
-- Issues #2 and #3 closed as completed evidence lanes.
+- GitLab->GitHub active cutover and branch provenance.
+- Autonomous mirror configured outside ChatGPT connectors: Windows Task Scheduler task MONEYKILLER-GitHub-to-GitLab-Mirror runs every 15 minutes and pushes GitHub branch X to GitLab github/X without overwriting historical GitLab refs.
+- ARC killtest completed and killed.
+- Battlecode Sprint lane closed as KILLED_EXTERNAL_DEADLINE, performance not established.
+- Pocket Vector bounty researched against campaign, Terms/FAQ, studio profile and platform payout evidence.
 
 ## ACTIVE WORK
-- Issue #1 only: Battlecode account/rules/toolkit gate → official sandbox parity → starter/cheap/challenger paired killtest → KILL or PROMOTE → submit only if promoted.
+- No implementation lane is currently promoted.
+- AUD discovery gate only: identify the next opportunity that is legal, currently enterable, payout-verifiable and >=USD20 NET.
 
 ## PENDING
-- Verify Battlecode registration/team/account and Sprint eligibility.
-- Execute official-engine paired Battlecode corpus with resource/death metrics.
-- Resolve Kaggriculture authenticated account gate only if AUD later reopens it.
-- GitHub→GitLab mirror is active via OS scheduler. Cloud fallback remains optional; no GitHub secret is required for the active path.
+- Find next live candidate with >=USD20 net payout after platform fees and a payout route actually usable by the user.
+- If revisiting Bounty Board, listed reward must be >=USD22.23 to clear a 10% creator fee and still net >=USD20, before FX/tax.
+- Kaggriculture can only reopen if authenticated evidence proves valid prior entry and current submit access.
 
 ## BLOCKERS/RISKS
-- Kaggriculture rules-acceptance state before its entry deadline is not proven.
-- Current GitHub migration is content/provenance snapshot, not a 1:1 historical Git-object mirror.
-- ACTIVE MIRROR=Windows Task Scheduler task `MONEYKILLER-GitHub-to-GitLab-Mirror`, every 15 minutes, running `C:\\GPT-SANDBOX\\m0kill-mirror\\mirror.ps1` under user Simon. It fetches GitHub and pushes non-destructively to GitLab `github/*`. Last forced scheduler run returned 0 and log ended `MIRROR_OK` at 2026-09-25T23:40:31-03:00. No ChatGPT connector participates after setup.
+- Pocket Vector: net payout is $18 under standard fee; creator payout method/Argentina-specific onboarding remains account-specific.
+- Battlecode Grand Final eligibility is restricted; MONEYKILLER has no durable evidence establishing eligibility.
+- Local scheduled mirror requires the Windows host/account to be available; cloud fallback exists but is manual-only without a GitHub secret.
 
 ## DO_NOT_TOUCH
 - Do not reopen ARC without explicit AUD authority.
+- Do not resume Battlecode Sprint work; deadline path is closed.
 - Do not build Kaggriculture while account gate is INDET.
 - No Laya/JEV model chasing, Trenches, SOL/wallet/capital, paid infra, exploit/anti-cheat work.
 - No force-push/rebase/history rewrite.
-- No active work on main.
-- Preserve arq2/arc-killtest-v1 and arq3/platform-kaggriculture-v1 as evidence.
+- Preserve closed lane branches as evidence.
 
 ## AUTHORITIES/GATES
-VERIFY>ASSUME; EVIDENCE>CLAIM; CURRENT_STATE>HISTORY; PRESERVE>REBUILD.
-Official engine/account evidence outranks summaries.
+VERIFY>ASSUME. EVIDENCE>CLAIM. CURRENT_STATE>HISTORY. PRESERVE>REBUILD.
+Official rules/account/payment evidence outranks summaries.
 CI_GREEN!=DONE.
-A lane promotes only on legal E2E + resource safety + positive evidence vs best cheap baseline.
-AUD alone may reopen a killed lane or approve merge/canon changes.
-
-## MIRROR STATUS
-- CONFIGURED=YES
-- LIVE=YES_LOCAL_SCHEDULED_TASK
-- CADENCE=15 minutes
-- POLICY=non-destructive: GitHub branch `X` → GitLab branch `github/X`; historical GitLab refs are never overwritten or deleted.
-- VERIFIED_GITLAB_REFS=`github/main`, `github/arq1/battlecode-killtest-v1`, `github/arq2/arc-killtest-v1`, `github/arq3/platform-kaggriculture-v1`
-- CLOUD_WORKFLOW=.github/workflows/mirror-gitlab.yml is manual-only fallback and intentionally not scheduled.
+Promotion requires legal entry + usable payout + >=USD20 net + measured edge where a technical competition is involved.
+AUD alone reopens killed lanes or authorizes a new implementation order.
 
 ## NEXT EXACT ACTION
-Audit Battlecode from Issue #1 on arq1/battlecode-killtest-v1: resolve account/Sprint gate, pin/audit official toolkit, run the frozen paired official-sandbox killtest, and produce KILLED_NO_EDGE or PROMOTED/SUBMITTED with raw evidence.
+Research current live opportunities and promote only one that proves: enterable now, legitimate payout, user-compatible payout rail, >=USD20 net after known platform fees, and bots/AI/automation allowed where automation is part of the task.
