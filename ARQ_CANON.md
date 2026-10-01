@@ -8,7 +8,7 @@ LAST_VERIFIED=2026-10-01T04:28:39-03:00
 ROLE_LOCK=ARQ
 SINGLE_ARQ_MODE=YES
 BRANCH=main
-HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
+HEAD=c509758c4987a4be449fb6b6c4b91169fb68e2f0
 
 ## CANONICAL LINKS
 - AUD canon: https://github.com/simondalmasso/m0kill/blob/main/AUD_CANON.md
@@ -24,7 +24,7 @@ HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
 - ARC-AGI-3=KILLED_NO_EDGE; do not rerun/rebuild.
 - Kaggriculture=BLOCKED_ACCOUNT_GATE_INDET; do not build.
 - Pocket Vector bounty is live but rejected under the standing >=USD20 net gate: $20 listed minus 10% creator fee = $18 net.
-- GitHub->GitLab mirror is already automated every 15 minutes outside ChatGPT connectors. Do not modify it.
+- GitHub->GitLab cloud mirror workflow is configured and scheduled, but actual pushes remain inactive until repository secret `GITLAB_MIRROR_TOKEN` is set once. Do not modify the workflow.
 
 ## DONE
 - GitHub cutover/mirror.
@@ -59,7 +59,7 @@ NONE until AUD promotes a new candidate.
 VERIFY>ASSUME. EVIDENCE>CLAIM. PRESERVE>REBUILD. CI_GREEN!=DONE.
 
 ## WHERE_TO_RESUME
-Start from main@02ca396f6f35a6945d37ff53537868c7ef57cf69 and read AUD_CANON. Do not resume any closed lane branch.
+Start from main@c509758c4987a4be449fb6b6c4b91169fb68e2f0 and read AUD_CANON. Do not resume any closed lane branch.
 
 ## WHAT_TO_DO_NOW
 Do not write code until AUD issues the next promoted order. For any proposed opportunity, first prove current entry, net payout >=USD20 after known fees, usable payout rail, and explicit automation/AI rules if relevant.
