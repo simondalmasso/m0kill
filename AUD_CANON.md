@@ -6,7 +6,7 @@ REPO=https://github.com/simondalmasso/m0kill
 LIVE=GitHub is canonical code/compute. GitLab is historical archive plus non-destructive mirror target.
 LAST_VERIFIED=2026-10-01T04:28:39-03:00
 BRANCH=main
-HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
+HEAD=c509758c4987a4be449fb6b6c4b91169fb68e2f0
 
 ## CANONICAL LINKS
 - GitHub: https://github.com/simondalmasso/m0kill
@@ -24,11 +24,11 @@ HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
 - Kaggriculture=BLOCKED_ACCOUNT_GATE_INDET; no build authorized.
 - Pocket Vector bounty is live but does NOT pass the existing >=USD20 net filter: listed $20 per approved short minus Bounty Board standard 10% creator fee = $18 net before any FX/tax/Stripe effects. No explicit AI-assistance ban was found in the campaign brief/Terms; authenticity/originality and paid-content disclosure still apply.
 - Bounty Board itself shows real payout history ($4.3K+ paid to 24 creators), but Pocket Vector studio has 0 creators paid so far.
-- GitHub->GitLab mirror is autonomous and current. GitHub main and GitLab github/main were verified equal at 02ca396f6f35a6945d37ff53537868c7ef57cf69.
+- GitHub->GitLab cloud mirror workflow is configured and scheduled every 30 minutes plus every push, but actual GitLab writes are inactive until GitHub repository secret `GITLAB_MIRROR_TOKEN` exists. Latest workflow configuration run passed without attempting a push because the secret is absent.
 
 ## DONE
 - GitLab->GitHub active cutover and branch provenance.
-- Autonomous mirror configured outside ChatGPT connectors: Windows Task Scheduler task MONEYKILLER-GitHub-to-GitLab-Mirror runs every 15 minutes and pushes GitHub branch X to GitLab github/X without overwriting historical GitLab refs.
+- Cloud mirror workflow `.github/workflows/mirror-gitlab.yml` is fully configured: GitHub branch X -> GitLab `github/X`, no deletion/overwrite of historical GitLab refs, push-triggered + 30-minute schedule.
 - ARC killtest completed and killed.
 - Battlecode Sprint lane closed as KILLED_EXTERNAL_DEADLINE, performance not established.
 - Pocket Vector bounty researched against campaign, Terms/FAQ, studio profile and platform payout evidence.
@@ -45,7 +45,7 @@ HEAD=02ca396f6f35a6945d37ff53537868c7ef57cf69
 ## BLOCKERS/RISKS
 - Pocket Vector: net payout is $18 under standard fee; creator payout method/Argentina-specific onboarding remains account-specific.
 - Battlecode Grand Final eligibility is restricted; MONEYKILLER has no durable evidence establishing eligibility.
-- Local scheduled mirror requires the Windows host/account to be available; cloud fallback exists but is manual-only without a GitHub secret.
+- MIRROR BLOCKER: GitHub repository secret `GITLAB_MIRROR_TOKEN` is not present. The assistant cannot create repository secrets through the connected GitHub tool; one manual secret insertion is required. Until then GitLab may lag GitHub.
 
 ## DO_NOT_TOUCH
 - Do not reopen ARC without explicit AUD authority.
