@@ -52,7 +52,8 @@ No es un bot para aceptar trabajos indiscriminadamente, ni una herramienta para 
 | [Mirror workflow](./.github/workflows/mirror-gitlab.yml) | GitHub → GitLab downstream sync configuration; writes require a configured secret |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | Evidence format and contribution boundaries |
 
-**Source of truth:** [GitHub / m0kill](https://github.com/simondalmasso/m0kill).  
+**Source of truth:** [GitHub / m0kill](https://github.com/simondalmasso/m0kill).
+
 **Historical archive / downstream mirror:** [GitLab / Moneykiller](https://gitlab.com/simondalmasso/Moneykiller). The migration is a snapshot/provenance cutover, **not** a claim of a complete Git-history mirror. Automated downstream writes require the `GITLAB_MIRROR_TOKEN` repository secret; check its state rather than assuming synchronization.
 
 ### Relationship to ATM
