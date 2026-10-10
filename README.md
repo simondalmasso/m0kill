@@ -66,7 +66,3 @@ Each promoted experiment should preserve rules and eligibility snapshots, offici
 Start from the [AUD](./AUD_CANON.md) or [ARQ](./ARQ_CANON.md) canon; discuss changes through [Issues](https://github.com/simondalmasso/m0kill/issues) and follow [CONTRIBUTING.md](./CONTRIBUTING.md). Do not push speculative experiments directly to `main`, mutate historical branches, or disclose credentials.
 
 **License:** No project-wide license has been declared. Public visibility does **not** imply permission to reuse or redistribute the code. External components retain their own licenses.
-
----
-
-<sub>Keywords: autonomous AI agents · agent evaluation · AI competitions · bounty research · reproducible benchmarks · zero-spend experiments · ARC-AGI-3 · Battlecode</sub>
